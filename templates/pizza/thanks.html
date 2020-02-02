@@ -1,0 +1,10 @@
+{% extends 'pizza/index.html' %}
+
+{% block title %}Спасибо!{% endblock %}
+
+{% block card %}
+    <h2>Спасибо, что сделали заказ!</h2>
+    <h4><a href="{% url 'index' %}">Заказать ещё?</a></h4>
+
+{% endblock %}
+

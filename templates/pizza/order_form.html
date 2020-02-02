@@ -1,0 +1,20 @@
+{% extends 'pizza/index.html' %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block card %}
+    <h2>Оформление заказа:</h2>
+    <h4>Вы выбрали <b>{{ dough }}</b> тесто.</h4>
+    <h4>Сумма заказа <b>{{ total }}</b>$.</h4>
+    <br>
+    <h3>Пожалуйста, введите личные данные и подтвердите заказ:</h3>
+
+    <form action="{% url 'order' %}" method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="Submit" value="Оформить заказ" class="btn btn-primary btn-lg btn-block"/>
+    </form>
+{% endblock %}
+

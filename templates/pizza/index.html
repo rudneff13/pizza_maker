@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/spacelab/bootstrap.min.css">
+    <title>{% block title %}Пицца!{% endblock %}</title>
+</head>
+
+<body>
+
+
+<div class="card">
+    {% block card %}
+
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+
+{#            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}#}
+
+            <h2>Пожалуйста, сделайте Ваш выбор:</h2>
+
+            <div>
+                <p>
+                    <b>Выберите тесто:</b>
+                </p>
+                {% for dough_unit in dough %}
+                    <input type="radio" name="dough" value="{{ dough_unit.name }}" required>{{ dough_unit.name }}
+                {% endfor %}
+                <br/>
+                <br/>
+            </div>
+
+
+            <div>
+                {% for topping_group_unit in topping_group %}
+                    <div>
+                        <p>
+                            <b>{{ topping_group_unit }}</b>
+                        </p>
+                        <table>
+                            <tbody>
+                            <tr>
+                                {% for topping_unit in topping_group_unit.toppings.all %}
+
+                                    <td>{{ topping_unit.name }} ({{ topping_unit.price }}$)<br>
+                                        <input type="number" value=0 min="0" max="5" name={{ topping_unit.name }}>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <input type="Submit" value="Оформить заказ" class="btn btn-primary btn-lg btn-block"/>
+        </form>
+
+    {% endblock %}
+
+
+</div>
+
+</body>
+
+</html>
